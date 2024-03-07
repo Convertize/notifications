@@ -13,5 +13,10 @@
 		"subject": "Chave de acesso rápido {{ customer.acess_key }}",
 		"active": true,
 		"module": "CUSTOMERS"
+	},
+	"comments": {
+		"subject": "Sua opinião é importante!",
+		"active": true,
+		"module": "PRODUCTS"
 	}
 }
