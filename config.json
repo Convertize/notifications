@@ -1,0 +1,17 @@
+{
+	"email_test": {
+		"subject": "Configuração de SMTP configurada com sucesso",
+		"active": true,
+		"module": "INTERNAL"
+	},
+	"let_me_know_from_name": {
+		"subject": "O Produto que você esperava voltou ao nosso estoque!",
+		"active": true,
+		"module": "PRODUCTS"
+	},
+	"acess_key": {
+		"subject": "Chave de acesso rápido {{ customer.acess_key }}",
+		"active": true,
+		"module": "CUSTOMERS"
+	}
+}

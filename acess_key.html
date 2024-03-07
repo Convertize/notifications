@@ -1,0 +1,69 @@
+{% load l10n i18n shop_tags %}
+{% localize off %}
+<table cellspacing="0" cellpadding="10" border="0" bgcolor="#f7f7f7" align="center" width="100%">
+    <tr>
+        <td>
+            <font face="Arial, Helvetica, sans-serif" size="2">
+                <table align="center" cellpadding="10" cellspacing="10" width="600" bgcolor="#ffffff">
+                    <tr>
+                        <td>
+                            <a href="{{ URL_EMAIL }}" target="_blank" style="display: block;">
+                                <!-- IMAGEM DA LOGO -->
+                                <img src="{{ MEDIA_URL }}uploads/emails_transacionais/logo.png" alt="SixWine" />
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+                <table align="center" cellpadding="0" cellspacing="0" width="600" bgcolor="#f7f7f7">
+                    <tr>
+                        <td height="3"></td>
+                    </tr>
+                </table>
+                <table align="center" cellpadding="0" cellspacing="10" width="600" bgcolor="#ffffff">
+                    <tr>
+                        <td>
+                            <table cellpadding="10" cellspacing="0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td align="left">
+                                            <strong>Olá, {{ customer.customer.full_name }}</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <!-- TEXTO PARA MODIFICAR -->
+                                        <td align="left">
+                                            Precisamos do código de confirmação liberar a página que você está tentando acessar.
+                                            <br />
+                                            Utilize o código abaixo:
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    	<td align="left">
+                                            <span style="display: inline-block; background: #e3e3e3; font-size: 22px; padding: 5px; border-radius: 4px;">
+                                                <b>{{ customer.acess_key }}</b>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellpadding="10" cellspacing="0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            E-mail de confirmação automática, não é necessário respondê-lo. Em caso de dúvidas, visite a nossa <a href="{{ URL_EMAIL }}/contacts/atendimento/" target="_blank" style="text-decoration: none;">Central de Atendimento.</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </font>
+        </td>
+    </tr>
+</table>
+{% endlocalize %}
