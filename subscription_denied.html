@@ -1,0 +1,174 @@
+{% load l10n i18n shop_tags %}
+{% localize off %}
+{% with pickup=subscription.pickup %}
+<table cellspacing="0" cellpadding="10" border="0" bgcolor="#f7f7f7" align="center" width="100%">
+    <tr>
+        <td>
+            <font face="Arial, Helvetica, sans-serif" size="2">
+                <table align="center" cellpadding="10" cellspacing="10" width="600" bgcolor="#FF6600" style="border-radius: 8px;">
+                    <tr>
+                        <td>
+                            <a href="{{ URL_EMAIL }}" target="_blank" style="display: block;">
+                                <!-- IMAGEM DA LOGO -->
+                                <img src="{{ MEDIA_URL }}uploads/emails_transacionais/logo.png" />
+                            </a>
+                        </td>
+                        <td align="right">
+                            <span style="color: #fff;">
+                                <strong>Assinatura pendente</strong>
+                                <br />
+                                Número <b>#{{ subscription.id }}</b>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+                <table align="center" cellpadding="0" cellspacing="0" width="600" bgcolor="#f7f7f7">
+                    <tr>
+                        <td height="5"></td>
+                    </tr>
+                </table>
+                <table align="center" cellpadding="0" cellspacing="10" width="600" bgcolor="#ffffff" style="border-radius: 8px;">
+                    <tr>
+                        <td>
+                            <table cellpadding="10" cellspacing="0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td align="left">
+                                            <span style="font-size: 18px; color: #cd2028;">
+                                                <b>Pagamento não aprovado</b>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left">
+                                            Olá, <b>{{ subscription.billing_detail_name }}</b>, lamentamos em informar que o pagamento da sua assinatura não foi aprovado.
+                                            <br /><br />
+                                            Por favor, verifique novamente os dados de pagamento inseridos.
+                                            <br /><br />
+                                            Ou entre em contato com a nossa equipe para que possamos lhe ajudar.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellpadding="0" cellspacing="10" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td align="center" bgcolor="#C5DCFA">
+                                            <a href="{{ URL_EMAIL }}{% url 'subscriptions:list' %}" style="display: block; padding: 15px; background: #414141; color: #fff; text-decoration: none;">
+                                                Verificar minha assinatura
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellpadding="10" cellspacing="0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong>Produto(s)</strong>
+                                        </td>
+                                    </tr>
+                                    {% for item in subscription.items.all %}
+                                        <tr bgcolor="#f9f9f9">
+                                            <td width="80" style="vertical-align:middle">
+                                                <img src="{{ MEDIA_URL }}{{ item.sku.product.image }}" width="50" height="50" alt="{{ item.description }}" style="vertical-align:middle;">
+                                            </td>
+                                            <td style="text-align:left;vertical-align:middle">
+                                                <span>{{ item.description }}</span>
+                                            </td>
+                                            <td style="text-align:right;vertical-align:middle">
+                                                <small style="padding-right: 8px;">qtd: {{ item.quantity }}</small> {{ item.unit_price|currency }}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellpadding="10" cellspacing="0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong>Resumo do pedido</strong>
+                                        </td>
+                                    </tr>
+                                    <tr bgcolor="#f9f9f9">
+                                        <td>
+                                            <table cellpadding="5" cellspacing="0" width="100%">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Pagamento:</td>
+                                                        <td align="right">{{ subscription.card.card_mask }} - {{ subscription.card.installments }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Data do Pedido:</td>
+                                                        <td align="right">{{ subscription.add_date|date:"d/m/Y" }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Entrega:</td>
+                                                        <td align="right">{{ subscription.shipping_total|currency }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Descontos:</td>
+                                                        <td align="right">{{ subscription.discount_total|currency }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <table cellpadding="5" cellspacing="0" width="100%">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <strong>Total:</strong>
+                                                        </td>
+                                                        <td align="right"><strong>{{ subscription.total|currency }}</strong></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <table cellpadding="5" cellspacing="0" width="100%">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            Detalhes da Assinatura:
+                                                        </td>
+                                                        <td align="right">
+                                                            <a href="{{ URL_EMAIL }}{% url 'subscriptions:list' %}" target="_blank" style="display: block;">ver detalhes</a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellpadding="10" cellspacing="0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            E-mail de confirmação automática, não é necessário respondê-lo. Em caso de dúvidas, visite a nossa <a href="{{ URL_EMAIL }}/contacts/atendimento/" target="_blank" style="text-decoration: none;">Central de Atendimento.</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </font>
+        </td>
+    </tr>
+</table>
+{% endwith %}
+{% endlocalize %}

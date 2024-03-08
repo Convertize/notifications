@@ -1,0 +1,109 @@
+{% load l10n i18n shop_tags %}
+<table cellspacing="0" cellpadding="10" border="0" bgcolor="#f7f7f7" align="center" width="100%">
+    <tr>
+        <td>
+            <font face="Arial, Helvetica, sans-serif" size="2">
+                <table align="center" cellpadding="10" cellspacing="10" width="600" bgcolor="#ffffff">
+                    <tr>
+                        <td>
+                            <a href="{{ URL_EMAIL }}" target="_blank" style="display: block;">
+                                <!-- IMAGEM DA LOGO -->
+                                <img src="{{ MEDIA_URL }}uploads/emails_transacionais/logo.png" />
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+                <table align="center" cellpadding="0" cellspacing="0" width="600" bgcolor="#f7f7f7">
+                    <tr>
+                        <td height="3"></td>
+                    </tr>
+                </table>
+                <table align="center" cellpadding="0" cellspacing="10" width="600" bgcolor="#ffffff">
+                    <tr>
+                        <td>
+                            <table cellpadding="10" cellspacing="0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td align="left">
+                                            <strong>Olá, {{ customer.customer.full_name }}</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <!-- TEXTO PARA MODIFICAR -->
+                                        <td align="left">
+                                            Seu pedido acabou de ser faturado.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    	<td align="left">
+                                        	{% with invoice=order.invoices.all|first %}
+                                                {% if invoice %}
+                                                    Nota: {{ invoice.reference_code }}
+                                            		<br />
+                                                    ID NF-e: {{ invoice.key }}
+                                            		<br />
+                                                    Data de emissão: {{ invoice.date_issue }}
+                                            		<br />
+                                                    Série: {{ invoice.series }}
+                                            		<br />
+                                                    Valor: {{ invoice.total }}
+                                                    {% if invoice.file1  %}
+                                                        PDF da NF-e: <a href="{{ invoice.file1.url }}" style="display: inline-block; background: #438ae1; color: #fff; padding: 5px; text-decoration: none; border-radius: 4px;">Visualizar</a>
+                                                    {% endif %}
+                                            	{% endif %}
+                                            {% endwith %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <!-- TEXTO PARA MODIFICAR -->
+                                    	<td align="left">
+                                        	Por favor, aguarde mais informações sobre seu pedido nos próximos e-mails.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellpadding="10" cellspacing="0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2">
+                                            <strong>Nesse pedido os produto(s) faturados são:</strong>
+                                        </td>
+                                    </tr>
+                                    {% for item in order.items.all %}
+                                        <tr bgcolor="#f9f9f9">
+                                            <td width="80" style="vertical-align:middle">
+                                                <img src="{{ MEDIA_URL }}{{ item.sku.product.image }}" width="50" height="50" alt="{{ item.description }}" style="vertical-align:middle;">
+                                            </td>
+                                            <td style="text-align:left;vertical-align:middle">
+                                                <span>{{ item.description }}</span>
+                                            </td>
+                                            <td width="150" style="text-align:right;vertical-align:middle">
+                                                <small style="padding-right: 8px;">qtd: {{ item.quantity }}</small> {{ item.unit_price|currency }}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellpadding="10" cellspacing="0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            E-mail de confirmação automática, não é necessário respondê-lo. Em caso de dúvidas, visite a nossa <a href="{{ URL_EMAIL }}/contacts/atendimento/" target="_blank" style="text-decoration: none;">Central de Atendimento.</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </font>
+        </td>
+    </tr>

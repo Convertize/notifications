@@ -1,0 +1,225 @@
+{% load l10n i18n shop_tags %}
+{% localize off %}
+{% with pickup=order.pickup %}
+<table cellspacing="0" cellpadding="10" border="0" bgcolor="#f7f7f7" align="center" width="100%">
+    <tr>
+        <td>
+            <font face="Arial, Helvetica, sans-serif" size="2">
+                <table align="center" cellpadding="10" cellspacing="10" width="600" bgcolor="#ffffff">
+                    <tr>
+                        <td>
+                            <a href="{{ URL_EMAIL }}" target="_blank" style="display: block;">
+                                <!-- IMAGEM DA LOGO -->
+                                <img src="{{ MEDIA_URL }}uploads/emails_transacionais/logo.png" />
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+                <table align="center" cellpadding="0" cellspacing="0" width="600" bgcolor="#f7f7f7">
+                    <tr>
+                        <td height="3"></td>
+                    </tr>
+                </table>
+                <table align="center" cellpadding="0" cellspacing="10" width="600" bgcolor="#ffffff">
+                    <tr>
+                        <td>
+                            <table cellpadding="10" cellspacing="0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td align="left">
+                                            <strong>Olá, {{ order.billing_detail_name }}</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <!-- TEXTO PARA MODIFICAR -->
+                                        <td align="left">
+                                            Informamos que o seu pedido <strong>{{ order.id }}</strong>, no valor de <strong>{{ order.total|currency }}</strong> foi recebido e encontra-se em análise em nosso sistema. Assim que aprovado, você receberá um e-mail informativo.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellpadding="10" cellspacing="0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong>Produto(s)</strong>
+                                        </td>
+                                    </tr>
+                                    {% for item in order.items.all %}
+                                        <tr bgcolor="#f9f9f9">
+                                            <td width="80" style="vertical-align:middle">
+                                                <img src="{{ MEDIA_URL }}{{ item.sku.product.image }}" width="50" height="50" alt="{{ item.description }}" style="vertical-align:middle;">
+                                            </td>
+                                            <td style="text-align:left;vertical-align:middle">
+                                                <span>{{ item.description }}</span>
+                                            </td>
+                                            <td style="text-align:right;vertical-align:middle">
+                                                <small style="padding-right: 8px;">qtd: {{ item.quantity }}</small> {{ item.unit_price|currency }}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellpadding="10" cellspacing="0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong>{% if pickup and 'retir' in order.shipping_type|slugify %}Retirada{% else %}Entrega{% endif %}</strong>
+                                        </td>
+                                    </tr>
+                                    <tr bgcolor="#f9f9f9">
+                                        <td>
+                                            <table cellpadding="10" cellspacing="0" width="100%" style="table-layout:fixed;font-size:14px">
+                                                <tbody>
+                                                    <tr align="left">
+                                                        {% if pickup and 'retir' in order.shipping_type|slugify %}
+                                                            <td>
+                                                                {{ pickup.address }}, {{ pickup.number }} - {{ pickup.neighborhood }} - {{ pickup.city }}, {{ pickup.state }} | CEP: {{ pickup.zipcode }}
+                                                            </td>
+                                                        {% else %}
+                                                            <td>
+                                                                {{ order.shipping_detail_address }}, {{ order.shipping_detail_number }} - {{ order.shipping_detail_neighborhood }} | CEP: {{ order.shipping_detail_postcode }} - {{ order.shipping_detail_city }}, {{ order.shipping_detail_state }}
+                                                                <br />
+                                                                {% if order.shipping_detail_complement %}{{ order.shipping_detail_complement }}{% endif %}
+                                                            </td>
+                                                        {% endif %}
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellpadding="10" cellspacing="0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong>Pagamento</strong>
+                                        </td>
+                                    </tr>
+                                    <tr style="background:#f9f9f9">
+                                        <td>
+                                            <table cellpadding="10" cellspacing="0" width="100%" style="table-layout:fixed;font-size:14px">
+                                                <tbody>
+                                                    <tr style="text-align:center">
+                                                        <td>
+                                                            Caso ainda não tenha realizado o pagamento,<a href="{{ URL_EMAIL }}{% url 'external_link' order.uuid %}"> clique aqui</a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellpadding="10" cellspacing="0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong>Resumo do pedido</strong>
+                                        </td>
+                                    </tr>
+                                    <tr bgcolor="#f9f9f9">
+                                        <td>
+                                            <table cellpadding="5" cellspacing="0" width="100%">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Data do Pedido:</td>
+                                                        <td align="right">{{ order.add_date|date:"d/m/Y" }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Status:</td>
+                                                        <td align="right">{{ order.get_status_display }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Frete:</td>
+                                                        <td align="right">{{ order.shipping_total|currency }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <table cellpadding="5" cellspacing="0" width="100%">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <strong>Total:</strong>
+                                                        </td>
+                                                        <td align="right"><strong>{{ order.total|currency }}</strong></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <table cellpadding="5" cellspacing="0" width="100%">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            Detalhes do Pedido:
+                                                        </td>
+                                                        <td align="right">
+                                                            <a href="{{ URL_EMAIL }}/clientes/central/meus-pedidos/{{ order.id }}/" target="_blank" style="display: block;">ver detalhes</a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellpadding="10" cellspacing="0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong>Importante</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left">
+                                            - O prazo de entrega é válido após a confirmação do pagamento.
+                                            <br />
+                                            - Para sua segurança, as informações contidas em seu cadastro estão sujeitas a confirmação, que poderá ser feita através de contato telefônico ou e-mail.
+                                            <br />
+                                            - Pedidos concluídos não estão passíveis de inclusão de produtos.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellpadding="10" cellspacing="0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            E-mail de confirmação automática, não é necessário respondê-lo. Em caso de dúvidas, visite a nossa <a href="{{ URL_EMAIL }}/contacts/atendimento/" target="_blank" style="text-decoration: none;">Central de Atendimento.</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </font>
+        </td>
+    </tr>
+</table>
+{% endwith %}
+{% endlocalize %}

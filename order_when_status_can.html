@@ -26,32 +26,30 @@
                                 <tbody>
                                     <tr>
                                         <td align="left">
-                                            <strong>Olá, {{ name }}</strong>
+                                            <strong>Olá, {{ order.billing_detail_name }}</strong>
                                         </td>
                                     </tr>
                                     <tr>
                                         <!-- TEXTO PARA MODIFICAR -->
                                         <td align="left">
-                                            Informamos que o produto desejado está novamente disponível para compra.
+                                            {% if order.get_last_sis_status.status == "RNF" and order.payment_method == "CartaoDeCredito" %}
+                                                Seu pedido <b>#{{ order.id }}</b> foi cancelado pelo seu cartão.
+                                                <br />
+                                                Não houve cobranças.
+                                            {% elif order.payment_method == "Boleto" and order.get_last_sis_status.status == "CAN" %}
+                                                Seu pedido <b>#{{ order.id }}</b> foi cancelado devido ao não pagamento do boleto.
+                                            {% else %}
+                                                Informamos que seu pedido <b>#{{ order.id }}</b> foi cancelado.
+                                            {% endif %}
+                                            <br />
+                                            Caso deseje refazer seu pedido, clique no botão abaixo:
                                         </td>
                                     </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <table cellpadding="10" cellspacing="0" width="100%">
-                                <tbody>
-                                    <tr bgcolor="#f9f9f9">
-                                        <td style="vertical-align:middle">
-                                            <img src="{{ MEDIA_URL }}{{ sku.image_small }}" width="50" height="50" />
-                                        </td>
-                                        <td style="vertical-align:middle">
-                                            {{ sku }}
-                                        </td>
-                                        <td align="right" style="text-align:right;vertical-align:middle">
-                                            <a href="{{ URL_EMAIL }}{{ sku.product.get_absolute_url }}?utm_campaign=Avisi_me_quando_chegar&utm_medium=email" target="_blank" style="display: inline-block; background: #2b8421; color: #fff; padding: 5px; text-decoration: none; border-radius: 4px;">Visualizar</a>
+                                    <tr>
+                                    	<td align="left">
+                                            <a href="{{ URL_EMAIL }}/carrinho/o/{{ order.id }}/?utm_source=recuperacao&utm_medium=email&utm_campaign=naopagos&utm_content=naopagos" target="_blank" style="display: inline-block; background: #2b8421; color: #fff; padding: 5px; text-decoration: none; border-radius: 4px;">
+                                                <b>Refazer pedido</b>
+                                            </a>
                                         </td>
                                     </tr>
                                 </tbody>

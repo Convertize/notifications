@@ -1,0 +1,238 @@
+{% load l10n i18n shop_tags %}
+{% localize off %}
+{% with pickup=order.pickup %}
+<table cellspacing="0" cellpadding="10" border="0" bgcolor="#f7f7f7" align="center" width="100%">
+    <tr>
+        <td>
+            <font face="Arial, Helvetica, sans-serif" size="2">
+                <table align="center" cellpadding="10" cellspacing="10" width="600" bgcolor="#ffffff">
+                    <tr>
+                        <td>
+                            <a href="{{ URL_EMAIL }}" target="_blank" style="display: block;">
+                                <!-- IMAGEM DA LOGO -->
+                                <img src="{{ MEDIA_URL }}uploads/emails_transacionais/logo.png" />
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+                <table align="center" cellpadding="0" cellspacing="0" width="600" bgcolor="#f7f7f7">
+                    <tr>
+                        <td height="3"></td>
+                    </tr>
+                </table>
+                <table align="center" cellpadding="0" cellspacing="10" width="600" bgcolor="#ffffff">
+                    <tr>
+                        <td>
+                            <table cellpadding="10" cellspacing="0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td align="left">
+                                            <strong>Olá, {{ order.billing_detail_name }}</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <!-- TEXTO PARA MODIFICAR -->
+                                        <td align="left">
+                                            Informamos que recebemos seu pedido <strong>#{{ order.id }}</strong>, no valor de <strong>{{ order.total|currency }}</strong>.
+                                            <br />
+                                            Aguarde a confirmação do pagamento nos próximos e-mails.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellpadding="10" cellspacing="0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong>Produto(s)</strong>
+                                        </td>
+                                    </tr>
+                                    {% for item in order.items.all %}
+                                        <tr bgcolor="#f9f9f9">
+                                            <td width="80" style="vertical-align:middle">
+                                                <img src="{{ MEDIA_URL }}{{ item.sku.product.image }}" width="50" height="50" alt="{{ item.description }}" style="vertical-align:middle;">
+                                            </td>
+                                            <td style="text-align:left;vertical-align:middle">
+                                                <span>{{ item.description }}</span>
+                                            </td>
+                                            <td width="150" style="text-align:right;vertical-align:middle">
+                                                <small style="padding-right: 8px;">qtd: {{ item.quantity }}</small> {{ item.unit_price|currency }}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellpadding="10" cellspacing="0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong>{% if pickup and 'retir' in order.shipping_type|slugify %}Retirada{% else %}Entrega{% endif %}</strong>
+                                        </td>
+                                    </tr>
+                                    <tr bgcolor="#f9f9f9">
+                                        <td>
+                                            <table cellpadding="10" cellspacing="0" width="100%" style="table-layout:fixed;font-size:14px">
+                                                <tbody>
+                                                    <tr align="left">
+                                                        {% if pickup and 'retir' in order.shipping_type|slugify %}
+                                                            <td>
+                                                                {{ pickup.address }}, {{ pickup.number }} - {{ pickup.neighborhood }} - {{ pickup.city }}, {{ pickup.state }} | CEP: {{ pickup.zipcode }}
+                                                            </td>
+                                                        {% else %}
+                                                            <td>
+                                                                {{ order.shipping_detail_address }}, {{ order.shipping_detail_number }} - {{ order.shipping_detail_neighborhood }} | CEP: {{ order.shipping_detail_postcode }} - {{ order.shipping_detail_city }}, {{ order.shipping_detail_state }}
+                                                                <br />
+                                                                {% if order.shipping_detail_complement %}Complemento: {{ order.shipping_detail_complement }}{% endif %}
+                                                            </td>
+                                                        {% endif %}
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellpadding="10" cellspacing="0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong>Pagamento</strong>
+                                        </td>
+                                    </tr>
+                                    <tr bgcolor="#f9f9f9">
+                                        <td>
+                                            <table cellpadding="10" cellspacing="0" width="100%" style="table-layout:fixed;font-size:14px">
+                                                <tbody>
+                                                    <tr align="left">
+                                                        <td>
+                                                            {% for payment in order.payments.all %}
+                                                                {% with transaction=payment.transaction %}
+                                                                    {% if transaction.group == 'Boleto' %}
+                                                                        <a href="{{ URL_EMAIL }}{% url 'checkout_return' transaction.uuid %}" target="_blank" style="display: inline-block;background: #2b8421; color: #fff; padding: 10px; text-decoration: none; border-radius: 4px;">
+                                                                            <b>Imprimir Boleto</b>
+                                                                        </a>
+                                                                        <br />
+                                                                        <br />
+                                                                        Caso já tenha realizado o pagamento do boleto, por favor, aguarde a aprovação.
+                                                                    {% elif transaction.group == 'CartaoDeCredito' %}
+                                                                        Cartão em {{ transaction.installments }}x
+                                                                    {% elif transaction.group == 'PIX' %}
+                                                                        Para realizar o pagamento, abra o aplicativo da sua instituição financeira, vá até a seção <strong>Pix</strong> e escolha a opção de <strong>pagar com QR Code</strong>.
+                                                                        <br />
+                                                                        Depois é só apontar a câmera para o QR Code abaixo.
+                                                                        <br />
+                                                                        <br />
+                                                                        <div style="text-align: center;">
+                                                                            <img src="{{ payment.transaction.extra_data.qrcode_image }}" alt="{{ payment.transaction.extra_data.qrcode }}" style="max-width: 50%">
+                                                                        </div>
+                                                                        <br />
+                                                                        <small>Caso não esteja visualizando o <b>QR CODE</b>, <a href="{{ URL_EMAIL }}clientes/central/meus-pedidos/{{ order.id }}/" style="text-decoration:underline;">clique aqui</a> para visualizá-lo na página de Meus Pedidos.</small>
+                                                                        <br />
+                                                                        Se você vai pagar com este mesmo dispositivo copie o código abaixo.
+                                                                        <br />
+                                                                        Depois, na seção <strong>Pix</strong> do aplicativo da sua instituição financeira, procure a função <strong>Pix Copia e Cola</strong>.
+                                                                        <br />
+                                                                        <br />
+                                                                        <span align="center" style="display: block; background: #fff; padding: 5px; word-wrap: break-word; border-radius: 4px;">
+                                                                            {{ payment.transaction.extra_data.qrcode }}
+                                                                        </span>
+                                                                    {% endif %}
+                                                                {% endwith %}
+                                                            {% endfor %}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellpadding="10" cellspacing="0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong>Resumo do pedido</strong>
+                                        </td>
+                                    </tr>
+                                    <tr bgcolor="#f9f9f9">
+                                        <td>
+                                            <table cellpadding="5" cellspacing="0" width="100%">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Data do Pedido:</td>
+                                                        <td align="right">{{ order.add_date|date:"d/m/Y" }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Status:</td>
+                                                        <td align="right">{{ order.get_status_display }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Frete:</td>
+                                                        <td align="right">{{ order.shipping_total|currency }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <table cellpadding="5" cellspacing="0" width="100%">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <strong>Total:</strong>
+                                                        </td>
+                                                        <td align="right"><strong>{{ order.total|currency }}</strong></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <table cellpadding="5" cellspacing="0" width="100%">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            Detalhes do Pedido:
+                                                        </td>
+                                                        <td align="right">
+                                                            <a href="{{ URL_EMAIL }}/clientes/central/meus-pedidos/{{ order.id }}/" target="_blank" style="display: block;">ver detalhes</a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellpadding="10" cellspacing="0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            E-mail de confirmação automática, não é necessário respondê-lo. Em caso de dúvidas, visite a nossa <a href="{{ URL_EMAIL }}/contacts/atendimento/" target="_blank" style="text-decoration: none;">Central de Atendimento.</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </font>
+        </td>
+    </tr>
+</table>
+{% endwith %}
+{% endlocalize %}

@@ -22,5 +22,125 @@
 		"active": true,
 		"title": "Comentários",
 		"module": "PRODUCTS"
+	},
+	"recover_password": {
+		"subject": "Recuperação de Senha",
+		"active": true,
+		"title": "Recuperação de Senha",
+		"module": "CUSTOMERS"
+	},
+	"export": {
+		"subject": "Sua Exportação Chegou",
+		"active": true,
+		"title": "Exportação",
+		"module": "INTERNAL"
+	},
+	"pay_billet": {
+		"subject": "Lembrete de Pagamento",
+		"active": true,
+		"title": "Pagamento Boleto",
+		"module": "GATEWAY"
+	},
+	"order_when_status_extl": {
+		"subject": "Seu pedido está aguardando o pagamento",
+		"active": true,
+		"title": "Pagamento Externo",
+		"module": "ORDERS"
+	},
+	"order_when_status_pen": {
+		"subject": "Seu pedido está aguardando o pagamento",
+		"active": true,
+		"title": "Pagamento Externo",
+		"module": "ORDERS"
+	},
+	"order_when_status_cep": {
+		"subject": "Pagamento Confirmado",
+		"active": true,
+		"title": "Pagamento Recebido",
+		"module": "ORDERS"
+	},
+	"order_when_status_can": {
+		"subject": "Pedido Cancelado",
+		"active": true,
+		"title": "Pedido Cancelado",
+		"module": "ORDERS"
+	},
+	"order_when_status_etp": {
+		"subject": "Pedido Entregue a Transportadora",
+		"active": true,
+		"title": "Pedido Entregue a Transportadora",
+		"module": "ORDERS"
+	},
+	"order_when_status_pecs": {
+		"subject": "Pedido Entregue",
+		"active": true,
+		"title": "Pedido Entregue",
+		"module": "ORDERS"
+	},
+	"order_when_status_spen": {
+		"subject": "Olá {{ order.shipping_detail_name }}, seu pedido {{ order.id }} saiu pra entrega!",
+		"active": true,
+		"title": "Pedido Saiu Para Entrega",
+		"module": "ORDERS"
+	},
+	"order_when_status_desau": {
+		"subject": "Olá {{ order.shipping_detail_name }}, não conseguimos fazer a entrega do seu pedido {{ order.id }}.",
+		"active": true,
+		"title": "Pedido Destinatário Ausente",
+		"module": "ORDERS"
+	},
+	"send_activity_customer": {
+		"subject": "Notificação sobre o pedido {{ order.id }}",
+		"active": true,
+		"title": "Pedido Notifição para Cliente",
+		"module": "ORDERS"
+	},
+	"order_when_status_ret": {
+		"subject": "Pedido pronto para Retirada - Seu Código de Retirada {{ order.withdrawal_code_formated }}",
+		"active": true,
+		"title": "Pedido Disponível para Retirada",
+		"module": "ORDERS"
+	},
+	"order_when_status_pes": {
+		"subject": "Olá {{ order.shipping_detail_name }}, Seu Pedido {{ order.id }} já está em Separação",
+		"active": true,
+		"title": "Pedido em Separação",
+		"module": "ORDERS"
+	},
+	"order_when_status_fat": {
+		"subject": "Olá {{ order.shipping_detail_name }}, Seu Pedido {{ order.id }} já está em Separação",
+		"active": true,
+		"title": "Pedido Faturado",
+		"module": "ORDERS"
+	},
+	"weddinglist_order": {
+		"subject": "Você ganhou um presente em sua lista",
+		"active": false,
+		"title": "Presente Recebido em Lista",
+		"module": "WEDDINGLIST"
+	},
+	"weddinglist_created": {
+		"subject": "Lista de Presentes Criada com Sucesso",
+		"active": false,
+		"title": "Lista de Presente Criada",
+		"module": "WEDDINGLIST"
+	},
+	"subscription_created": {
+		"subject": "Parabéns! Agora você é um assinante",
+		"active": false,
+		"title": "Assinatura Criada",
+		"module": "SUBSCRIPTION"
+	},
+	"subscription_renewed": {
+		"subject": "Sua assinatura foi Renovada",
+		"active": false,
+		"title": "Assinatura Renovada",
+		"module": "SUBSCRIPTION"
+	},
+	"subscription_denied": {
+		"subject": "Sua assinatura não foi aprovada",
+		"active": false,
+		"title": "Assinatura Não Aprovada",
+		"module": "SUBSCRIPTION"
 	}
 }

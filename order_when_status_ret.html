@@ -1,0 +1,484 @@
+{% load l10n i18n shop_tags %}
+{% with pickup=order.pickup %}
+<table bgcolor="#ffffff" cellpadding="0" cellspacing="0" width="100%">
+    <tbody>
+        <tr>
+            <td align="center" height="20" bgcolor="#ffffff">
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#ffffff">
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="604">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tbody>
+                                        <tr>
+                                            <td align="left">
+                                                <a href="{{ URL_EMAIL }}">
+                                                    <img src="{{ MEDIA_URL }}uploads/emails_transacionais/logo.png" style="display:block"/>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="20">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="4">
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tr>
+                        <td align="center" height="2" bgcolor="#e2302e">
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" cellpadding="0" cellspacing="0">
+                <table align="center" cellpadding="0" cellspacing="0" width="604">
+                    <tbody>
+                        <tr>
+                            <td bgcolor="#ffffff" width="604">
+                                <br />
+                                <br />
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <font color="#666666" face="Arial, Helvetica, sans-serif" size="+1">Olá {{ order.billing_detail_name }},
+                                                </font>
+                                                <br />
+                                                <br />
+                                                <font color="#666666" face="Arial, Helvetica, sans-serif" size="2">
+                                                    Seu pedido
+                                                    <b>{{ order.formated_id }}
+                                                    </b> está pronto para a retirada.
+                                                    <br />
+                                                    <br />
+                                                    <br />
+                                                    <b>Observações:
+                                                    </b>
+                                                    <br />
+                                                    Somente o emissor do pedido pode retirar a compra. No ato da retirada leve um documento com foto.
+                                                </font>
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <font color="#666666" face="Arial, Helvetica, sans-serif" size="+1">
+                                                Seu código de retirada é:
+                                                <span style="background-color:#f4f4f4;padding:20px;border-radius:25px"><b>{{ order.withdrawal_code_formated }}</b></span>
+                                                </font>
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <img src="{{ MEDIA_URL }}uploads/emails_transacionais/step-pronto-retirada.jpg" />
+                                                <br />
+                                                <br />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                    <tr>
+                                        <td>
+                                            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                                <tr>
+                                                    <td>
+                                                        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                                            <tr>
+                                                                <td bgcolor="#d6d6d6" width="1" colspan="3" height="1">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td bgcolor="#d6d6d6" width="1">
+                                                                </td>
+                                                                <td>
+                                                                    <table width="100%" cellpadding="8" cellspacing="0" border="0">
+                                                                        <tr>
+                                                                            <th bgcolor="#f4f4f4" align="left">
+                                                                                <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#666666">
+                                                                                    <strong>Produto
+                                                                                    </strong>
+                                                                                </font>
+                                                                            </th>
+                                                                            <th bgcolor="#f4f4f4" align="right" width="105">
+                                                                                <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#666666">
+                                                                                    <strong>Preço Unit
+                                                                                    </strong>
+                                                                                </font>
+                                                                            </th>
+                                                                            <th bgcolor="#f4f4f4" align="right">
+                                                                                <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#666666">
+                                                                                    <strong>Qtd
+                                                                                    </strong>
+                                                                                </font>
+                                                                            </th>
+                                                                            <th bgcolor="#f4f4f4" align="right">
+                                                                                <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#666666">
+                                                                                    <strong>Total
+                                                                                    </strong>
+                                                                                </font>
+                                                                            </th>
+                                                                        </tr>
+                                                                        {% for item in order.items.all %}
+                                                                        <tr>
+                                                                            <td align="left">
+                                                                                <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ item.description }}
+                                                                                </font>
+                                                                            </td>
+                                                                            <td align="right">
+                                                                                <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ item.unit_price|currency }}
+                                                                                </font>
+                                                                            </td>
+                                                                            <td align="right">
+                                                                                <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ item.quantity }}
+                                                                                </font>
+                                                                            </td>
+                                                                            <td align="right">
+                                                                                <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ item.total_price|currency }}
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                        {% endfor %}
+                                                                    </table>
+                                                                </td>
+                                                                <td bgcolor="#d6d6d6" width="1">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td bgcolor="#d6d6d6" width="1" colspan="3" height="1">
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                                            <tr>
+                                                                <td align="right">
+                                                                    <table width="220" cellpadding="0" cellspacing="2" border="0">
+                                                                        <tr>
+                                                                            <td>
+                                                                                <font face="Arial, Helvetica, sans-serif" size="2" color="#797979">Sub-total:
+                                                                                </font>
+                                                                            </td>
+                                                                            <td align="right">
+                                                                                <font face="Arial, Helvetica, sans-serif" size="2" color="#797979">{{ order.item_total|currency }}
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                        {% if order.discount_total %}
+                                                                        <tr>
+                                                                            <td>
+                                                                                <font face="Arial, Helvetica, sans-serif" size="2" color="#797979">Desconto:
+                                                                                </font>
+                                                                            </td>
+                                                                            <td align="right">
+                                                                                <font face="Arial, Helvetica, sans-serif" size="2" color="#797979">{{ order.discount_total|currency }}
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                        {% endif %}
+                                                                        <tr>
+                                                                            <td>
+                                                                                <font face="Arial, Helvetica, sans-serif" size="2" color="#797979">Frete:
+                                                                                </font>
+                                                                            </td>
+                                                                            <td align="right">
+                                                                                <font face="Arial, Helvetica, sans-serif" size="2" color="#797979">{{ order.shipping_total|currency }}
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="2" height="20">
+                                                                                <img src="{{ MEDIA_URL }}uploads/emails/border.gif" width="100%" height="1" style="display:block;" />
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <font face="Arial, Helvetica, sans-serif" size="2" color="#222222">
+                                                                                    <strong>Total:
+                                                                                    </strong>
+                                                                                </font>
+                                                                            </td>
+                                                                            <td align="right">
+                                                                                <font face="Arial, Helvetica, sans-serif" size="2" color="#222222">
+                                                                                    <strong>{{ order.total|currency }}
+                                                                                    </strong>
+                                                                                </font>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                    <br />
+                                                                </td>
+                                                            </tr>
+                                                            {% if pickup or 'retira' in order.shipping_type|slugify %}
+                                                            <tr>
+                                                                <td>
+                                                                    <br />
+                                                                    <br />
+                                                                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                                                        <tr>
+                                                                            <td bgcolor="#d6d6d6" colspan="3" height="1">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td bgcolor="#d6d6d6" width="1">
+                                                                            </td>
+                                                                            <td width="542">
+                                                                                <table width="100%" cellpadding="10" cellspacing="0" border="0">
+                                                                                    <tr>
+                                                                                        <th bgcolor="#f4f4f4" align="left">
+                                                                                            <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#666666">
+                                                                                                <strong>
+                                                                                                    ENDEREÇO DA RETIRADA
+                                                                                                </strong>
+                                                                                            </font>
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </td>
+                                                                            <td bgcolor="#d6d6d6" width="1">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td bgcolor="#d6d6d6" width="1">
+                                                                            </td>
+                                                                            <td width="602">
+                                                                                <table width="100%" cellpadding="5" cellspacing="5" border="0">
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            {% if pickup and 'retir' in order.shipping_type|slugify %}
+                                                                                            <table width="100%" cellpadding="0" cellspacing="10" border="0">
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">
+                                                                                                            <strong>Endereço:
+                                                                                                            </strong>
+                                                                                                        </font>
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ pickup.address }}
+                                                                                                        </font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">
+                                                                                                            <strong>Número:
+                                                                                                            </strong>
+                                                                                                        </font>
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ pickup.number }}
+                                                                                                        </font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">
+                                                                                                            <strong>Bairro:
+                                                                                                            </strong>
+                                                                                                        </font>
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ pickup.neighborhood }}
+                                                                                                        </font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">
+                                                                                                            <strong>Cidade:
+                                                                                                            </strong>
+                                                                                                        </font>
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ pickup.city }}
+                                                                                                        </font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">
+                                                                                                            <strong>CEP:
+                                                                                                            </strong>
+                                                                                                        </font>
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ pickup.zipcode }}
+                                                                                                        </font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </table>
+                                                                                            {% else %}
+                                                                                            <table width="100%" cellpadding="0" cellspacing="10" border="0">
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">
+                                                                                                            <strong>Nome Completo:
+                                                                                                            </strong>
+                                                                                                        </font>
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ order.shipping_detail_name }}
+                                                                                                        </font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">
+                                                                                                            <strong>Endereço:
+                                                                                                            </strong>
+                                                                                                        </font>
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ order.shipping_detail_address }}
+                                                                                                        </font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">
+                                                                                                            <strong>Número:
+                                                                                                            </strong>
+                                                                                                        </font>
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ order.shipping_detail_number }}
+                                                                                                        </font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                {% if order.shipping_detail_complement %}
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">
+                                                                                                            <strong>Complemento:
+                                                                                                            </strong>
+                                                                                                        </font>
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ order.shipping_detail_complement }}
+                                                                                                        </font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                {% endif %}
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">
+                                                                                                            <strong>Bairro:
+                                                                                                            </strong>
+                                                                                                        </font>
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ order.shipping_detail_neighborhood }}
+                                                                                                        </font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">
+                                                                                                            <strong>Cidade:
+                                                                                                            </strong>
+                                                                                                        </font>
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ order.shipping_detail_city }} - {{ order.shipping_detail_state }}
+                                                                                                        </font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">
+                                                                                                            <strong>CEP:
+                                                                                                            </strong>
+                                                                                                        </font>
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ order.shipping_detail_postcode }}
+                                                                                                        </font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </table>
+                                                                                            {% endif %}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </td>
+                                                                            <td bgcolor="#d6d6d6" width="1">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td bgcolor="#d6d6d6" colspan="3" height="1">
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                    <br />
+                                                                </td>
+                                                            </tr>
+                                                            {% endif %}
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <font color="#000000" face="Arial, Helvetica, sans-serif" size="2">
+                                                    <br />
+                                                    <br />
+                                                    Atenciosamente,
+                                                    <br />
+                                                    <b>XXXXXX
+                                                    </b>
+                                                </font>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <br />
+                                <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#e3e3e3" height="2">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table cellpadding="0" cellspacing="0" width="604">
+                                    <tbody>
+                                        <tr>
+                                            <td height="40">
+                                                <font color="#000000" face="Arial, Helvetica, sans-serif" size="1">Por favor, não responda a este
+                                                    <strong>e-mail
+                                                    </strong>. Não podemos responder a consultas enviadas a este endereço. Para obter respostas imediatas ás suas perguntas, visite nossa Central de Atendimento.
+                                                </font>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+{% endwith %}

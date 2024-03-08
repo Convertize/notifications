@@ -1,5 +1,4 @@
 {% load l10n i18n shop_tags %}
-{% localize off %}
 <table cellspacing="0" cellpadding="10" border="0" bgcolor="#f7f7f7" align="center" width="100%">
     <tr>
         <td>
@@ -26,13 +25,27 @@
                                 <tbody>
                                     <tr>
                                         <td align="left">
-                                            <strong>Olá, {{ name }}</strong>
+                                            <strong>Olá, {{ order.billing_detail_name }}</strong>
                                         </td>
                                     </tr>
                                     <tr>
                                         <!-- TEXTO PARA MODIFICAR -->
                                         <td align="left">
-                                            Informamos que o produto desejado está novamente disponível para compra.
+                                            Seu pedido está em separação.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <!-- TEXTO PARA MODIFICAR -->
+                                        <td align="left">
+                                            Acabamos de enviar o seu pedido para o setor responsável pela separação.<br>
+                                            Vamos prepará-lo com muito carinho.<br>
+                                            Assim que o status do pedido mudar te avisamos por aqui.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <!-- TEXTO PARA MODIFICAR -->
+                                        <td align="left">
+                                            Por favor, aguarde mais informações sobre seu pedido nos próximos e-mails.
                                         </td>
                                     </tr>
                                 </tbody>
@@ -43,17 +56,24 @@
                         <td>
                             <table cellpadding="10" cellspacing="0" width="100%">
                                 <tbody>
-                                    <tr bgcolor="#f9f9f9">
-                                        <td style="vertical-align:middle">
-                                            <img src="{{ MEDIA_URL }}{{ sku.image_small }}" width="50" height="50" />
-                                        </td>
-                                        <td style="vertical-align:middle">
-                                            {{ sku }}
-                                        </td>
-                                        <td align="right" style="text-align:right;vertical-align:middle">
-                                            <a href="{{ URL_EMAIL }}{{ sku.product.get_absolute_url }}?utm_campaign=Avisi_me_quando_chegar&utm_medium=email" target="_blank" style="display: inline-block; background: #2b8421; color: #fff; padding: 5px; text-decoration: none; border-radius: 4px;">Visualizar</a>
+                                    <tr>
+                                        <td colspan="2">
+                                            <strong>Produto(s) em separação</strong>
                                         </td>
                                     </tr>
+                                    {% for item in order.items.all %}
+                                        <tr bgcolor="#f9f9f9">
+                                            <td width="80" style="vertical-align:middle">
+                                                <img src="{{ MEDIA_URL }}{{ item.sku.product.image }}" width="50" height="50" alt="{{ item.description }}" style="vertical-align:middle;">
+                                            </td>
+                                            <td style="text-align:left;vertical-align:middle">
+                                                <span>{{ item.description }}</span>
+                                            </td>
+                                            <td width="150" style="text-align:right;vertical-align:middle">
+                                                <small style="padding-right: 8px;">qtd: {{ item.quantity }}</small> {{ item.unit_price|currency }}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </td>
@@ -64,7 +84,7 @@
                                 <tbody>
                                     <tr>
                                         <td>
-                                            E-mail de confirmação automática, não é necessário respondê-lo. Em caso de dúvidas, visite a nossa <a href="{{ URL_EMAIL }}/contacts/atendimento/" target="_blank" style="text-decoration: none;">Central de Atendimento.</a>
+                                            E-mail de confirmação automática, não é necessário respondê-lo. Em caso de dúvidas, visite a nossa <a href="{{ URL_EMAIL }}contacts/atendimento/" target="_blank" style="text-decoration: none;">Central de Atendimento.</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -76,4 +96,3 @@
         </td>
     </tr>
 </table>
-{% endlocalize %}

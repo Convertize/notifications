@@ -1,0 +1,242 @@
+{% load l10n i18n shop_tags %}
+{% with pickup=order.pickup %}
+<table bgcolor="#ffffff" cellpadding="0" cellspacing="0" width="100%">
+    <tbody>
+        <tr>
+            <td align="center" bgcolor="#ffffff" height="5">&nbsp;</td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#ffffff">
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="604" >
+                    <tbody>
+                        <tr>
+                            <td >
+                                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tbody>
+                                        <tr>
+                                            <td align="left"><a href="{{ URL_EMAIL }}"><img alt="Drogal" src="{{ MEDIA_URL }}uploads/emails_transacionais/v2/logo.png" style="display:block"/></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="20"></td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#0b5eb1" height="3"></td>
+                        </tr>
+                        <tr>
+                            <td height="4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" cellpadding="0" cellspacing="0">
+                <table align="center" cellpadding="0" cellspacing="0" width="604">
+                    <tbody>
+                        <tr>
+                            <td bgcolor="#ffffff" width="604">
+                                <br /><br />
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <p>
+	                                                <font color="#666666" face="Arial, Helvetica, sans-serif" size="+1">Olá {{ order.billing_detail_name }},</font>
+                                                </p>
+                                                <p>
+                                                    <font color="#666666" face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px;">
+                                                        O pagamento do seu pedido <b>{{ order.id }}</b> foi confirmado.
+                                                    </font>
+                                                </p>
+                                                <p>
+													<font color="#868290 " face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px;">
+    	                                            	Você receberá novos comunicados, por e-mail, sobre o andamento do pedido.
+													</font>
+                                                </p>
+                                                <p>
+                                                    {% if 'motoboy' in order.shipping_type|slugify %}
+                                                    <img src="{{ MEDIA_URL }}uploads/emails_transacionais/v2/step2.png" />
+                                                    {% elif pickup or 'retira' in order.shipping_type|slugify %}
+                                                    <img src="{{ MEDIA_URL }}uploads/emails_transacionais/v2/retirada-step2.png" />
+                                                    {% else %}
+                                                    <img src="{{ MEDIA_URL }}uploads/emails_transacionais/v2/step2.png" />
+                                                    {% endif %}
+                                                </p>
+                                                <br />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                {% if not pickup and 'retira' not in order.shipping_type|slugify %}
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <td>
+                                            <p>
+	                                            <font face="Arial, Helvetica, sans-serif" size="3" style="font-size:14px" color="#666666">
+    	                                            <b>Previsão de Entrega</b>
+        	                                    </font>
+                                            </p>
+                                            <p>
+	                                            <font color="#666666" face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px;">
+    	                                        	A entrega ocorrerá em até <b> {{ order.days_to_shipping }} dias úteis após o despacho</b>, conforme a forma de envio escolhida na finalização do pedido.
+        	                                        <br /><br />
+            	                                    O prazo de entrega é contado em dias úteis, ou seja, não inclui sábados, domingos e feriados.
+                	                            </font>
+                                            </p>
+                                            <br />
+                                        </td>
+                                    </tr>
+                                </table>
+                                {% endif %}
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <td bgcolor="#d6d6d6" height="1" colspan="3"></td>
+                                    </tr>
+	                                <tr>
+                                        <td bgcolor="#d6d6d6" width="1"></td>
+                                        <td width="542">
+                                            <table width="100%" cellpadding="10" cellspacing="0" border="0">
+                                                <tr>
+                                                    <th bgcolor="#f4f4f4" align="left">
+                                                        <font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px;" color="#666666">
+                                                            <strong>
+                                                                ENDEREÇO DA {% if pickup and 'retira' in order.shipping_type|slugify %}RETIRADA{% else %}ENTREGA{% endif %}
+                                                            </strong>
+                                                        </font>
+                                                    </th>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td bgcolor="#d6d6d6" width="1"></td>
+                                    </tr>
+                                    <tr>
+                                        <td bgcolor="#d6d6d6" height="1" colspan="3"></td>
+                                    </tr>
+                                    <tr>
+                                        <td bgcolor="#d6d6d6" width="1"></td>
+                                        <td width="602">
+                                            <table width="100%" cellpadding="5" cellspacing="5" border="0">
+                                                <tr>
+                                                    <td>
+                                                        {% if pickup and 'retira' in order.shipping_type|slugify %}
+                                                            <table width="100%" cellpadding="0" cellspacing="10" border="0">
+                                                                <tr>
+                                                                    <td><font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222"><strong>Endereço:</strong></font></td>
+                                                                    <td><font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ pickup.address }} </font></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222"><strong>Número:</strong></font></td>
+                                                                    <td><font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ pickup.number }} </font></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222"><strong>Bairro:</strong></font></td>
+                                                                    <td><font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ pickup.neighborhood }} </font></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222"><strong>Cidade:</strong></font></td>
+                                                                    <td><font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ pickup.city }} </font></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222"><strong>CEP:</strong></font></td>
+                                                                    <td><font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ pickup.zipcode }} </font></td>
+                                                                </tr>
+                                                            </table>
+                                                        {% else %}
+                                                            <table width="100%" cellpadding="0" cellspacing="10" border="0">
+                                                                <tr>
+                                                                    <td><font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222"><strong>Nome Completo:</strong></font></td>
+                                                                    <td><font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ order.shipping_detail_name }}</font></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222"><strong>Endereço:</strong></font></td>
+                                                                    <td><font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ order.shipping_detail_address }}</font></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222"><strong>Número:</strong></font></td>
+                                                                    <td><font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ order.shipping_detail_number }}</font></td>
+                                                                </tr>
+                                                                {% if order.shipping_detail_complement %}
+                                                                <tr>
+                                                                    <td><font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222"><strong>Complemento:</strong></font></td>
+                                                                    <td><font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ order.shipping_detail_complement }}</font></td>
+                                                                </tr>
+                                                                {% endif %}
+                                                                <tr>
+                                                                    <td><font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222"><strong>Bairro:</strong></font></td>
+                                                                    <td><font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ order.shipping_detail_neighborhood }}</font></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222"><strong>Cidade:</strong></font></td>
+                                                                    <td><font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ order.shipping_detail_city }} - {{ order.shipping_detail_state }}</font></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222"><strong>CEP:</strong></font></td>
+                                                                    <td><font face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px" color="#222222">{{ order.shipping_detail_postcode }}</font></td>
+                                                                </tr>
+                                                            </table>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td bgcolor="#d6d6d6" width="1"></td>
+                                    </tr>
+                                    <tr>
+                                        <td bgcolor="#d6d6d6" height="1" colspan="3"></td>
+                                    </tr>
+                                </table>
+                                <br /><br />
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <td>
+                                            <p>
+	                                            <font face="Arial, Helvetica, sans-serif" size="3" style="font-size:14px" color="#666666">
+    	                                            <b>Acompanhe seu Pedido</b>
+        	                                    </font>
+                                            </p>
+                                    		<p>
+	                                            <font color="#666666" face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px;">
+    	                                        	Se preferir, você pode acompanhar o pedido pelo site
+        	                                    </font>
+                                            </p>
+                                            <p>
+	                                            {% localize off %}
+    	                                        <a href="{{ URL_EMAIL }}/clientes/central/meus-pedidos/{{ order.id }}/"><img src="{{ MEDIA_URL }}/uploads/emails_transacionais/bt-acompanhe.jpg" /></a>
+        	                                	{% endlocalize %}
+                                            </p>
+                                            <p>
+	                                            <font color="#666666" face="Arial, Helvetica, sans-serif" size="2" style="font-size:12px;">
+    	                                            Caso tenha alguma dúvida, consulte-nos através da <a href="{{ URL_EMAIL }}/atendimento/">Central de Atendimento</a>.
+												</font>
+                                            </p>
+                                            <br />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#e3e3e3" height="2"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table cellpadding="0" cellspacing="0" width="604">
+                                    <tbody>
+                                        <tr>
+                                            <td height="40"><font color="#000000" face="Arial, Helvetica, sans-serif" size="1">Por favor, não responda a este <strong>e-mail</strong>. Não podemos responder a consultas enviadas a este endereço. Para obter respostas imediatas ás suas perguntas, visite nossa Central de Atendimento. </font></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+{% endwith %}

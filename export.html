@@ -1,3 +1,4 @@
+!-- E-MAIL DA CONVERTIZE NÃO POSSUI INFO DE CLIENTE -->
 {% load l10n i18n shop_tags %}
 {% localize off %}
 <table cellspacing="0" cellpadding="10" border="0" bgcolor="#f7f7f7" align="center" width="100%">
@@ -7,8 +8,7 @@
                 <table align="center" cellpadding="10" cellspacing="10" width="600" bgcolor="#ffffff">
                     <tr>
                         <td>
-                            <a href="{{ URL_EMAIL }}" target="_blank" style="display: block;">
-                                <!-- IMAGEM DA LOGO -->
+                            <a href="https://convertize.com.br/" target="_blank" style="display: block;">
                                 <img src="{{ MEDIA_URL }}uploads/emails_transacionais/logo.png" />
                             </a>
                         </td>
@@ -26,32 +26,21 @@
                                 <tbody>
                                     <tr>
                                         <td align="left">
-                                            <strong>Olá, {{ name }}</strong>
+                                            <strong>Olá, {{ export.user.get_full_name }}</strong>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <!-- TEXTO PARA MODIFICAR -->
                                         <td align="left">
-                                            Informamos que o produto desejado está novamente disponível para compra.
+                                            Seu aquivo já está disponível
                                         </td>
                                     </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <table cellpadding="10" cellspacing="0" width="100%">
-                                <tbody>
-                                    <tr bgcolor="#f9f9f9">
-                                        <td style="vertical-align:middle">
-                                            <img src="{{ MEDIA_URL }}{{ sku.image_small }}" width="50" height="50" />
-                                        </td>
-                                        <td style="vertical-align:middle">
-                                            {{ sku }}
-                                        </td>
-                                        <td align="right" style="text-align:right;vertical-align:middle">
-                                            <a href="{{ URL_EMAIL }}{{ sku.product.get_absolute_url }}?utm_campaign=Avisi_me_quando_chegar&utm_medium=email" target="_blank" style="display: inline-block; background: #2b8421; color: #fff; padding: 5px; text-decoration: none; border-radius: 4px;">Visualizar</a>
+                                    <tr>
+                                        <td align="left">
+                                            <a href="{{ URL_EMAIL }}m/export/{{ export.uuid }}.{{ export.extension|lower }}"
+                                                target="_blank"
+                                                style="display: inline-block; background: #438ae1; color: #fff; padding: 5px; text-decoration: none; border-radius: 4px;">
+                                                <b>Visualizar</b>
+                                            </a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -64,7 +53,7 @@
                                 <tbody>
                                     <tr>
                                         <td>
-                                            E-mail de confirmação automática, não é necessário respondê-lo. Em caso de dúvidas, visite a nossa <a href="{{ URL_EMAIL }}/contacts/atendimento/" target="_blank" style="text-decoration: none;">Central de Atendimento.</a>
+                                            E-mail de confirmação automática, não é necessário respondê-lo.
                                         </td>
                                     </tr>
                                 </tbody>
