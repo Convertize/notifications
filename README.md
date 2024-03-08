@@ -1,8 +1,3 @@
-# Welcome to Convertize Notifications!
-
-Convertize Notifications
-
-
 # Notifications
 |Title                                       |Preview URL                    |
 |--------------------------------------------|-------------------------------|
@@ -29,6 +24,7 @@ Convertize Notifications
 |Assinatura Criada                           |[subscription_created.html](https://htmlpreview.github.io/?https://raw.githubusercontent.com/Convertize/notifications/main/subscription_created.html)      |
 |Assinatura Renovada                         |[subscription_renewed.html](https://htmlpreview.github.io/?https://raw.githubusercontent.com/Convertize/notifications/main/subscription_renewed.html)      |
 |Assinatura Não Aprovada                     |[subscription_denied.html](https://htmlpreview.github.io/?https://raw.githubusercontent.com/Convertize/notifications/main/subscription_denied.html)        |
+
 
 
 <p align="center">
