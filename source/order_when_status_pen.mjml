@@ -1,0 +1,39 @@
+<mjml>
+  <mj-head>
+    <mj-attributes>
+      <mj-include path="./components/attributes.mjml" />
+      <mj-class name="orderTableHeader" background-color="#000" padding-bottom="10px" />
+    </mj-attributes>
+  </mj-head>
+  <mj-body background-color="#fafafa">
+    <mj-wrapper mj-class="wrapperStyle">
+      <mj-section mj-class="primaryTextColor regular mainSectionStyle">
+        <mj-column>
+
+          <mj-include path="./components/header.mjml" />
+
+          <mj-text mj-class="h1">NOVO PEDIDO 🎉</mj-text>
+
+          <mj-text mj-class="orderTableHeader">Alguém fez um novo pedido na sua loja.</mj-text>
+          <mj-text>Clique em "VER DETALHES"</mj-text>
+          <mj-button mj-class="buttonStyle" href="{{ order.url }}">VER DETALHES</mj-button>
+
+
+          <mj-text mj-class="h2">Os detalhes do pedido</mj-text>
+          <mj-divider border-color="#D3D1D0" border-width="1px" border-style="dashed" />
+          <mj-table>
+            <thead class="table-header-row" style="border-bottom: 2px solid #28234a;">
+              <tr>
+                <th style="padding: 5px;">Endereço de Cobrança</th>
+                <th style="padding: 5px;">Endereço para envio</th>
+              </tr>
+            </thead>
+          </mj-table>
+          <mj-spacer />
+          <mj-text>don't worry Be Convertize!</mj-text>
+        </mj-column>
+      </mj-section>
+      <mj-include path="./components/footer.mjml" />
+    </mj-wrapper>
+  </mj-body>
+</mjml>

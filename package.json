@@ -1,0 +1,16 @@
+{
+  "name": "convertize-notifications",
+  "version": "1.0.0",
+  "repository": "git@github.com:Convertize/notifications.git",
+  "author": "Convertize E-Commerce",
+  "license": "MIT",
+  "homepage": "https://www.convertize.com.br/",
+  "dependencies": {},
+  "devDependencies": {
+    "mjml": "^4.13.0"
+  },
+  "scripts": {
+    "build": "mjml -c.useMjmlConfigOptions -c.beautify false -l skip \"source/*.mjml\" -o ./compiled",
+    "build-beautify": "mjml -c.useMjmlConfigOptions -c.beautify true -l skip \"source/*.mjml\" -o ./compiled"
+  }
+}

@@ -1,0 +1,5 @@
+!.github
+!.gitignore
+!.mjmlconfig
+.DS_Store
+/node_modules/

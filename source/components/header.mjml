@@ -1,0 +1,7 @@
+<mj-image mj-class="topLogoStyle" src="{{ logo_url }}"></mj-image>
+<mj-section>
+  <mj-column>
+    <mj-text mj-class="footerTextStyle">TESTE</mj-text>
+  </mj-column>
+</mj-section>
+<mj-divider mj-class="borderAccentColor"></mj-divider>
