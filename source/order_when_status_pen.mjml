@@ -12,7 +12,7 @@
 
           <mj-include path="./components/header.mjml" />
 
-          <mj-text mj-class="h1">NOVO PEDIDO 🎉</mj-text>
+          <mj-text mj-class="h1">NOVO PEDIDO #0001</mj-text>
 
           <mj-text mj-class="orderTableHeader">Alguém fez um novo pedido na sua loja.</mj-text>
           <mj-text>Clique em "VER DETALHES"</mj-text>
