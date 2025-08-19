@@ -1,4 +1,11 @@
 # Convertize Admin E-Mail Template
+
+Modelos [MJML](https://mjml.io/) que você pode usar para personalizar os e-mails da sua loja Convertize.
+
+[Handlebars](https://handlebarsjs.com/) você pode usar como sistema de templates.
+
+
+## Old Templates
 |Title                                       |Preview URL                    |
 |--------------------------------------------|-------------------------------|
 |Configuração de SMTP                        |[email_test.html](https://htmlpreview.github.io/?https://raw.githubusercontent.com/Convertize/notifications/main/old/email_test.html)                          |
